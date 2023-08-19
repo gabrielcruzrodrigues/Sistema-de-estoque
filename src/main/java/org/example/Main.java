@@ -87,25 +87,30 @@ public class Main {
         System.out.print("qual o nome do item que voçê deseja remover? ");
         String item = scan.nextLine();
         System.out.println("----------------------------------------------------");
-        String[] items = new String[10];
 
-        int indice = 0;
+        boolean found = false;
 
+        for(int i = 0; i < products.length; i++) {
+            if (products[i] != null && products[i].getName().equalsIgnoreCase(item)) {
 
+                for (int j = i; j < products.length - 1; j++) {
+                    products[j] = products[j + 1];
+                }
 
-//        for (Product i : products) {
-//            if (Objects.equals(products[indice].getName(), item)) {
-//                String name =  products[indice].getName();
-//                items[indice] = name;
-//            }
-//            indice += 1;
-//        }
-//
-//        for (String i : items) {
-//            System.out.println(i);
-//        }
+                products[products.length - 1] = null;
+                found = true;
+                break;
+            }
+        }
+
+        if (found) {
+            System.out.println("item removido com sucesso.");
+        } else {
+            System.out.println("Item não encontrado no estoque.");
+        }
 
         menu();
+        scan.close();
     }
 
 }
